@@ -184,22 +184,21 @@ const HomePage = ({
       <Content spaceTop spaceBottom color="gray" centered>
         <FeatureSummary centerAlign useNavLink label="Demonstration">
           <h2>Select a dog in the image</h2>
-          <a href="/demo" className="my-5 text-lg font-bold">
-  <span>Go to demo</span>
-  <svg
-    width="36"
-    height="36"
-    viewBox="0 0 36 36"
-    fill="none"
-    xmlns="http://www.w3.org/2000/svg"
-  >
-    <path
-      d="M20.9657 10.9997L27.9287 17.9627L20.9657 24.9258L19.7348 23.719L24.6203 18.8331L9.0001 18.8331V17.0924L24.5966 17.0924L19.7348 12.2306L20.9657 10.9997Z"
-      fill="white"
-    />
-  </svg>
-</a>
-
+          <Button className="my-5 text-lg font-bold">
+            <span>Go to demo</span>
+            <svg
+              width="36"
+              height="36"
+              viewBox="0 0 36 36"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M20.9657 10.9997L27.9287 17.9627L20.9657 24.9258L19.7348 23.719L24.6203 18.8331L9.0001 18.8331V17.0924L24.5966 17.0924L19.7348 12.2306L20.9657 10.9997Z"
+                fill="white"
+              />
+            </svg>
+          </Button>
           <Stage
             scale={scale}
             handleResetState={handleResetState}

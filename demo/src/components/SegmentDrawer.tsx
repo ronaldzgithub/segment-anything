@@ -84,49 +84,6 @@ const SegmentDrawer = ({
   // setIsAllMounted(false)
   // setIsCutOutMounted(false)
 
-
-
-  const ImageUploadForm: React.FC = () => {
-    const [error, setError] = useState<string | null>(null);
-  
-    // Define a function to handle file input change
-    const handleFileInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-      const acceptedFile = event.target.files; // Get the first selected file
-      if (!acceptedFile) return; // Do nothing if no file selected
-      
-      // Process the selected file
-      try {
-        if (acceptedFile.length === 0) {
-          setError("File not accepted! Try again.");
-          return;
-        }
-        if (acceptedFile.length > 1) {
-          setError("Too many files! Try again with 1 file.");
-          return;
-        }
-        const reader = new FileReader();
-        reader.onloadend = () => {
-          handleSelectedImage(acceptedFile[0]);
-        };
-        reader.readAsDataURL(acceptedFile[0]);
-      } catch (error) {
-        console.log(error);
-      }
-    };
-  
-    return (
-      <form>
-        <input type="file" accept=".png, .jpeg, .jpg" onChange={handleFileInputChange} />
-        <button type="submit" className="ml-1 text-blue-700 underline">
-          Upload an image
-        </button>
-        {error && <div>{error}</div>}
-      </form>
-    );
-  };
-
-  
-/*
   const { getRootProps, getInputProps } = useDropzone({
     accept: {
       "image/png": [".png"],
@@ -153,7 +110,7 @@ const SegmentDrawer = ({
     },
     maxSize: 50_000_000,
   });
-*/
+
   return (
     <section className="flex-col hidden w-1/5 pt-[6%] overflow-y-auto md:flex lg:w-72">
       <div
@@ -173,14 +130,11 @@ const SegmentDrawer = ({
                   setIsToolBarUpload(true);
                 }}
               >
-                <ImageUploadForm></ImageUploadForm>
-                {/**
                 <span {...getRootProps()} className="flex text-sm">
                   <input {...getInputProps()} />
                   <img src="assets/upload_arrow.svg" className="w-5 mr-1" />
                   Upload
                 </span>
-                */}
               </button>
               <button
                 className="flex"

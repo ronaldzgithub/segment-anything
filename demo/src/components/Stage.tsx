@@ -1,7 +1,6 @@
 import Konva from "konva";
 import React, {
   Profiler,
-  ProfilerOnRenderCallback,
   useContext,
   useEffect,
   useRef,
@@ -495,18 +494,7 @@ const Stage = ({
       }
     }
   };
-  
-  const renderCallback: ProfilerOnRenderCallback = (
-    id,
-    phase,
-    actualDuration,
-    baseDuration,
-    startTime,
-    commitTime
-  ) => {
-    console.log(`${id} took ${actualDuration}ms`);
-  };
-  
+
   const handleRedoInteraction = () => {
     if (
       clicksHistory?.length &&
@@ -642,7 +630,16 @@ const Stage = ({
                 >
                   <Profiler
                     id="Canvas"
-                    onRender={renderCallback}
+                    onRender={(
+                      id, // the "id" prop of the Profiler tree that has just committed
+                      phase, // either "mount" (if the tree just mounted) or "update" (if it re-rendered)
+                      actualDuration, // time spent rendering the committed update
+                      baseDuration, // estimated time to render the entire subtree without memoization
+                      startTime, // when React began rendering this update
+                      commitTime
+                    ) => {
+                      // console.log(`${id} took ${actualDuration}ms`);
+                    }}
                   >
                     <Canvas
                       konvaRef={konvaRef}

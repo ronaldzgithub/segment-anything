@@ -6,9 +6,10 @@
 
 const { resolve } = require("path");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
-const FriendlyErrorsWebpackPlugin = require("friendly-errors-webpack-plugin");
+//const FriendlyErrorsWebpackPlugin = require("friendly-errors-webpack-plugin");
 const CopyPlugin = require("copy-webpack-plugin");
 const webpack = require("webpack");
+const Dotenv = require('dotenv-webpack');
 
 module.exports = {
   entry: "./src/index.tsx",
@@ -82,9 +83,9 @@ module.exports = {
     new HtmlWebpackPlugin({
       template: "./src/assets/index.html",
     }),
-    new FriendlyErrorsWebpackPlugin(),
     new webpack.ProvidePlugin({
       process: "process/browser",
     }),
+    new Dotenv()
   ],
 };

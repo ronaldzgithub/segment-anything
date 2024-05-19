@@ -10,8 +10,8 @@ import {
   setParmsandQueryModelProps,
 } from "./Interface";
 
-const API_ENDPOINT = process.env.API_ENDPOINT;
-const ALL_MASK_API_ENDPOINT = process.env.ALL_MASK_API_ENDPOINT;
+const API_ENDPOINT = 'https://model-zoo.metademolab.com/predictions/segment_everything_box_model'; //process.env.API_ENDPOINT;
+const ALL_MASK_API_ENDPOINT = 'https://model-zoo.metademolab.com/predictions/automatic_masks';//process.env.ALL_MASK_API_ENDPOINT;
 const ERASE_API_ENDPOINT = process.env.ERASE_API_ENDPOINT;
 
 const setParmsandQueryModel = ({

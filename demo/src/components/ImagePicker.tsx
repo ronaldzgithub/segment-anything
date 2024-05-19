@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useLayoutEffect, useState } from "react";
-import {useMemo} from 'react';
+import { Button, Checkbox } from "react-daisyui";
 import { useDropzone } from "react-dropzone";
 import PhotoAlbum from "react-photo-album";
 import { NavLink } from "react-router-dom";
@@ -61,15 +61,13 @@ const ImagePicker = ({
     setTimeout(() => setEnableDemo(true), 500);
   };
 
-  /*
-  const { getRootProps, getInputProps, isDragActive } = useDropzone({
+  const { getRootProps, getInputProps } = useDropzone({
     accept: {
       "image/png": [".png"],
       "image/jpeg": [".jpeg", ".jpg"],
     },
     onDrop: (acceptedFile) => {
       try {
-        
         if (acceptedFile.length === 0) {
           setError("File not accepted! Try again.");
           return;
@@ -88,7 +86,7 @@ const ImagePicker = ({
       }
     },
     maxSize: 50_000_000,
-  });*/
+  });
 
   const StarterModal = () => {
     return (
@@ -122,13 +120,11 @@ const ImagePicker = ({
           </ul>
 
           <div className="flex flex-row m-4 md:mt-6 md:mb-6">
-          <input
-          type="checkbox"
-  className="mt-1 mr-2"
-  checked={acceptedTerms}
-  onChange={() => handleAttemptContinue()}
-/>
-
+            <Checkbox
+              className="mt-1 mr-2"
+              checked={acceptedTerms}
+              onChange={() => handleAttemptContinue()}
+            />
             <div>
               <div className="pb-4">
                 <span>
@@ -160,76 +156,6 @@ const ImagePicker = ({
       ></img>
     );
   };
-  
-
-
-  const ImageUploadForm: React.FC = () => {
-    const [error, setError] = useState<string | null>(null);
-  
-    // Define a function to handle file input change
-    const handleFileInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-      const acceptedFile = event.target.files; // Get the first selected file
-      if (!acceptedFile) return; // Do nothing if no file selected
-      
-      // Process the selected file
-      try {
-        if (acceptedFile.length === 0) {
-          setError("File not accepted! Try again.");
-          return;
-        }
-        if (acceptedFile.length > 1) {
-          setError("Too many files! Try again with 1 file.");
-          return;
-        }
-        const reader = new FileReader();
-        reader.onloadend = () => {
-          handleSelectedImage(acceptedFile[0]);
-        };
-        reader.readAsDataURL(acceptedFile[0]);
-      } catch (error) {
-        console.log(error);
-      }
-    };
-  
-    return (
-      <form>
-        <input type="file" accept=".png, .jpeg, .jpg" onChange={handleFileInputChange} />
-        <button type="submit" className="ml-1 text-blue-700 underline">
-          Upload an image
-        </button>
-        {error && <div>{error}</div>}
-      </form>
-    );
-  };
-
-  
-  interface Photo {
-    src: string; width: number; height: number;
-  }
-  
-  interface Props {
-    isMobile: boolean;
-    photos: Photo[];
-    func: (data: File | URL, options?: { shouldDownload?: boolean; shouldNotFetchAllModel?: boolean }) => void;
-  
-  }
-  
-  const SimplePhotoGallery: React.FC<Props> = ({ isMobile, photos, func }) => {
-    return (
-      <div style={{ display: isMobile ? "grid" : "flex", gridTemplateColumns: "repeat(1, 1fr)" }}>
-        {photos.map((photo, index) => (
-          <img
-            key={index}
-            src={photo.src}
-            alt={photo.src}
-            style={{ width: "100%", marginBottom: isMobile ? "10px" : 0, cursor: "pointer" }}
-            onClick={() => func(new URL(photo.src, location.origin))}
-          />
-        ))}
-      </div>
-    );
-  };
-
 
   return (
     <div className="pt-6 mx-4">
@@ -254,17 +180,12 @@ const ImagePicker = ({
             />
           </svg>
           <span>Find a photo in the gallery, or</span>
-
-          <ImageUploadForm />
-
-{/*
           <span {...getRootProps()}>
             <input {...getInputProps()} />
             <button className="ml-1 text-blue-700 underline">
               Upload an image
             </button>
           </span>
-          */}
         </div>
       </div>
       <div
@@ -272,10 +193,12 @@ const ImagePicker = ({
           showGallery ? "fade-in" : ""
         }`}
       >
-        <SimplePhotoGallery
-          isMobile={isMobile}
+        <PhotoAlbum
+          layout={isMobile ? "columns" : "rows"}
           photos={photos}
-          func = {handleSelectedImage}
+          columns={1}
+          onClick={(e: any) => handleSelectedImage(e.target.src)}
+          renderPhoto={image}
         />
       </div>
     </div>

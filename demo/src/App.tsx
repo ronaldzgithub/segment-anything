@@ -30,12 +30,6 @@ import NavBar from "./components/Navbar";
 import Stage from "./components/Stage";
 import CookieText from "./CookieText";
 
-
-// Define image, embedding and model paths
-const IMAGE_PATH = "assets/data/dogs.jpg";
-const IMAGE_EMBEDDING = "assets/data/dogs_embedding.npy";
-const MODEL_DIR = "assets/data/sam_onnx_quantized_example.onnx"
-
 const App = () => {
   const {
     click: [click, setClick],
@@ -94,9 +88,18 @@ const App = () => {
   useEffect(() => {
     const initModel = async () => {
       try {
-        if (MODEL_DIR === undefined) return;
-        const URL: string = MODEL_DIR;
+        /*
+        process.env.MODEL_DIR = 'src/assets/data'
+        process.env.API_ENDPOINT='https://model-zoo.metademolab.com/predictions/segment_everything_box_model'
+        process.env.ALL_MASK_API_ENDPOINT='https://model-zoo.metademolab.com/predictions/automatic_masks'
+
+        alert(process.env.MODEL_DIR)
+        if (process.env.MODEL_DIR === undefined) return;
+        */
+        const URL: string = 'http://localhost:8181/src/assets/data';
+        alert(URL)
         const model = await InferenceSession.create(URL);
+        alert(model)
         setModel(model);
       } catch (e) {
         console.log(e);
