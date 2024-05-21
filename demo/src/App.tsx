@@ -96,10 +96,9 @@ const App = () => {
         alert(process.env.MODEL_DIR)
         if (process.env.MODEL_DIR === undefined) return;
         */
-        const URL: string = 'http://localhost:8181/src/assets/data';
-        alert(URL)
+        const URL: string = 'assets/data/interactive_module_quantized_592547_2023_03_19_sam6_long_uncertain.onnx';
         const model = await InferenceSession.create(URL);
-        alert(model)
+        console.debug('model has been downloaded')
         setModel(model);
       } catch (e) {
         console.log(e);
@@ -247,10 +246,10 @@ const App = () => {
         last_pred_mask: predMask,
       });
       if (feeds === undefined) return;
-      // const beforeONNX = Date.now();
+      const beforeONNX = Date.now();
       const results = await model.run(feeds);
-      // const afterONNX = Date.now();
-      // console.log(`ONNX took ${afterONNX - beforeONNX}ms`);
+      const afterONNX = Date.now();
+      console.log(`ONNX took ${afterONNX - beforeONNX}ms`);
       const output = results[model.outputNames[0]];
       if (hasClicked) {
         // const beforeSVG = Date.now();
@@ -549,6 +548,7 @@ const App = () => {
                 setHasClicked={setHasClicked}
                 handleSelectedImage={handleSelectedImage}
                 image={image}
+                model={model}
               />
               <Footer />
             </div>

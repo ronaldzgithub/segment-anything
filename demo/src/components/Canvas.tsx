@@ -173,7 +173,7 @@ const Canvas = ({
       setAllTimeouts([]);
       if (konvaRef === null) return;
       const animateAllSvg: Konva.Layer =
-        konvaRef!.current!.findOne(".animateAllSvg") as Konva.Layer;
+        konvaRef!.current!.findOne(".animateAllSvg");
       animateAllSvg.destroyChildren();
       animateAllSvg.draw();
     }
@@ -185,7 +185,7 @@ const Canvas = ({
     if (konvaRef.current === null) return;
     setIsAllAnimationDone(false);
     const animateAllSvg: Konva.Layer =
-      konvaRef.current.findOne(".animateAllSvg")as Konva.Layer;
+      konvaRef.current.findOne(".animateAllSvg");
     animateAllSvg.find("Circle").forEach((el) => el.destroy());
     animateAllSvg.find("Path").forEach((el) => el.destroy());
     const width = canvasDimensions.width / 32;
